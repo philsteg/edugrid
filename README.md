@@ -1,6 +1,11 @@
+[![pypi](https://img.shields.io/pypi/v/edugrid)](https://pypi.org/project/edugrid)
+[![license](https://img.shields.io/github/license/philsteg/edugrid)](https://github.com/philsteg/edugrid)
+[![tests](https://github.com/philsteg/edugrid/actions/workflows/python-app.yml/badge.svg)](https://github.com/philsteg/edugrid/actions/workflows/python-app.yml)
+
 # EduGrid
 
-❗EduGrid is intended for educational purposes and is hence not optimized for speed. If you don't need so much flexibility, have a look at the Gymmasium environments ["Frozen Lake"](https://gymnasium.farama.org/environments/toy_text/frozen_lake/) and ["Minigrid"](https://minigrid.farama.org/index.html)❗
+> [!NOTE]
+> EduGrid is intended for educational purposes and is hence not optimized for speed. If you don't need so much flexibility, have a look at the Gymmasium environments ["Minigrid"](https://minigrid.farama.org/index.html) and ["Frozen Lake"](https://gymnasium.farama.org/environments/toy_text/frozen_lake/).
 
 EduGrid is a Gymnasium grid environment with focus on flexibility for educational purposes. The agent moves in a grid of cells and tries to reach target cells. Furthermore, dynamic programming algorithms are implemented and can iteratively be inspected.
 

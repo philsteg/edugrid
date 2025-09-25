@@ -886,5 +886,5 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
 
     def close(self) -> None:
         if self.window is not None:
-            pygame.display.quit()
-            pygame.quit()
+            pygame.display.quit()  # noqa: F821
+            pygame.quit()  # noqa: F821
