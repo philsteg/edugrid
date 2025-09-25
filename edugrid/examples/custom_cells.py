@@ -23,7 +23,7 @@ class CustomCell(Cell):
         env.terminal_matrix[row, column] = self.is_terminal
         env.reward_matrix[:, :, :, row, column] = 5 if self.is_terminal else -1
         print(
-            f"On-step update for custom cell at ({row}, {column}): Cell is {"" if self.is_terminal else "NOT "}terminal."
+            f"On-step update for custom cell at ({row}, {column}): Cell is {'' if self.is_terminal else 'NOT '}terminal."
         )
 
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         obs, reward, terminated, truncated, info = env.step(action)
 
         if terminated:
-            print(f"Terminated at cell ({obs["agent"][0]}, {obs["agent"][1]})")
+            print(f"Terminated at cell ({obs['agent'][0]}, {obs['agent'][1]})")
 
         if terminated or truncated:
             break

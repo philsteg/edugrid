@@ -251,8 +251,10 @@ def test_reset_env(simple_env: EduGridEnv):
 
 def test_step_env_right(simple_env: EduGridEnv):
     initial_obs, _ = simple_env.reset()
+    initial_row, initial_col = initial_obs["agent"]
     obs, reward, terminated, truncated, info = simple_env.step(Action.RIGHT)
-    assert obs["agent"][0] == 0 and obs["agent"][1] == 1
+    row, col = obs["agent"]
+    assert row == 0 and col == 1
     assert (
         len(obs["targets"]) == 1
         and obs["targets"][0][0] == 4
@@ -260,23 +262,23 @@ def test_step_env_right(simple_env: EduGridEnv):
     )
     assert (
         reward
-        == simple_env.reward_matrix[
-            *initial_obs["agent"].tolist(), Action.RIGHT, *obs["agent"].tolist()
-        ]
+        == simple_env.reward_matrix[initial_row, initial_col, Action.RIGHT, row, col]
     )
-    assert terminated == simple_env.terminal_matrix[*obs["agent"].tolist()]
+    assert terminated == simple_env.terminal_matrix[row, col]
     assert truncated is False
     assert (
         info["prob"]
         == simple_env.transition_matrix[
-            *initial_obs["agent"].tolist(), Action.RIGHT, *obs["agent"].tolist()
+            initial_row, initial_col, Action.RIGHT, row, col
         ]
     )
 
 
 def test_step_env_up(simple_env: EduGridEnv):
     initial_obs, _ = simple_env.reset()
+    initial_row, initial_col = initial_obs["agent"]
     obs, reward, terminated, truncated, info = simple_env.step(Action.UP)
+    row, col = obs["agent"]
     assert obs["agent"][0] == 0 and obs["agent"][1] == 0
     assert (
         len(obs["targets"]) == 1
@@ -285,23 +287,21 @@ def test_step_env_up(simple_env: EduGridEnv):
     )
     assert (
         reward
-        == simple_env.reward_matrix[
-            *initial_obs["agent"].tolist(), Action.UP, *obs["agent"].tolist()
-        ]
+        == simple_env.reward_matrix[initial_row, initial_col, Action.UP, row, col]
     )
-    assert terminated == simple_env.terminal_matrix[*obs["agent"].tolist()]
+    assert terminated == simple_env.terminal_matrix[row, col]
     assert truncated is False
     assert (
         info["prob"]
-        == simple_env.transition_matrix[
-            *initial_obs["agent"].tolist(), Action.UP, *obs["agent"].tolist()
-        ]
+        == simple_env.transition_matrix[initial_row, initial_col, Action.UP, row, col]
     )
 
 
 def test_step_env_left(simple_env: EduGridEnv):
     initial_obs, _ = simple_env.reset()
+    initial_row, initial_col = initial_obs["agent"]
     obs, reward, terminated, truncated, info = simple_env.step(Action.LEFT)
+    row, col = obs["agent"]
     assert obs["agent"][0] == 0 and obs["agent"][1] == 0
     assert (
         len(obs["targets"]) == 1
@@ -310,24 +310,22 @@ def test_step_env_left(simple_env: EduGridEnv):
     )
     assert (
         reward
-        == simple_env.reward_matrix[
-            *initial_obs["agent"].tolist(), Action.LEFT, *obs["agent"].tolist()
-        ]
+        == simple_env.reward_matrix[initial_row, initial_col, Action.LEFT, row, col]
     )
-    assert terminated == simple_env.terminal_matrix[*obs["agent"].tolist()]
+    assert terminated == simple_env.terminal_matrix[row, col]
     assert truncated is False
     assert (
         info["prob"]
-        == simple_env.transition_matrix[
-            *initial_obs["agent"].tolist(), Action.LEFT, *obs["agent"].tolist()
-        ]
+        == simple_env.transition_matrix[initial_row, initial_col, Action.LEFT, row, col]
     )
 
 
 def test_step_env_down(simple_env: EduGridEnv):
     initial_obs, _ = simple_env.reset()
+    initial_row, initial_col = initial_obs["agent"]
     obs, reward, terminated, truncated, info = simple_env.step(Action.DOWN)
-    assert obs["agent"][0] == 1 and obs["agent"][1] == 0
+    row, col = obs["agent"]
+    assert row == 1 and col == 0
     assert (
         len(obs["targets"]) == 1
         and obs["targets"][0][0] == 4
@@ -335,15 +333,11 @@ def test_step_env_down(simple_env: EduGridEnv):
     )
     assert (
         reward
-        == simple_env.reward_matrix[
-            *initial_obs["agent"].tolist(), Action.DOWN, *obs["agent"].tolist()
-        ]
+        == simple_env.reward_matrix[initial_row, initial_col, Action.DOWN, row, col]
     )
-    assert terminated == simple_env.terminal_matrix[*obs["agent"].tolist()]
+    assert terminated == simple_env.terminal_matrix[row, col]
     assert truncated is False
     assert (
         info["prob"]
-        == simple_env.transition_matrix[
-            *initial_obs["agent"].tolist(), Action.DOWN, *obs["agent"].tolist()
-        ]
+        == simple_env.transition_matrix[initial_row, initial_col, Action.DOWN, row, col]
     )
