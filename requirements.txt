@@ -1,9 +1,9 @@
-numpy~=2.3
+numpy~=2.2
 gymnasium~=1.2
 matplotlib~=3.10
 pygame~=2.6
 # drawsvg~=2.4
 # Only for developing
-black~=25.1
+black~=25.9
 pytest~=8.4
 pre-commit~=4.3
