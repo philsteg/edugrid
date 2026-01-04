@@ -223,7 +223,7 @@ class DeterministicPolicy(Policy):
             np.put(out, ind, 1.0)
 
     def _validate_set_map(self, values: np.ndarray) -> None:
-        assert isinstance(values, np.ndarray), f"'map' must be a numpy array"
+        assert isinstance(values, np.ndarray), "'map' must be a numpy array"
         assert (
             values.shape == self._map.shape
         ), f"'map' has shape {values.shape} but should have {self._map.shape}"
@@ -305,16 +305,13 @@ class StochasticPolicy(Policy):
     """Numpy array with shape `(rows, columns, actions)` that specifies the probabilities of choosing actions given states."""
 
     def get_probs(self) -> np.ndarray:
-        return self.probs
+        return self._probs.copy()
 
     def reset(self) -> None:
         self._init_probs(self._init_mode)
 
     def __call__(self, state: tuple[int, int]) -> int:
         return self._rng.choice(self._num_actions, p=self._probs[state])
-
-    def get_probs(self) -> np.ndarray:
-        return self._probs.copy()
 
     def update_with_state_values(
         self,
@@ -326,9 +323,9 @@ class StochasticPolicy(Policy):
         self._assert_for_state_values(values, transition_probs, rewards, gamma)
 
         # shape of 'returns' is (nrows, ncols, num_actions)
-        returns = np.sum(transition_probs * rewards, axis=(3, 4)) + gamma * np.sum(
-            transition_probs * values, axis=(3, 4)
-        )
+        returns = np.sum(
+            np.multiply(transition_probs, rewards), axis=(3, 4)
+        ) + gamma * np.sum(np.multiply(transition_probs, values), axis=(3, 4))
         max = np.max(returns, axis=2, keepdims=True)
         argmax_mask = np.isclose(returns, max)
         # greedy update (in-place)
@@ -385,7 +382,7 @@ class StochasticPolicy(Policy):
             np.copyto(out, p, where=argmax_mask)
 
     def _validate_set_probs(self, values: np.ndarray) -> None:
-        assert isinstance(values, np.ndarray), f"'probs' must be a numpy array"
+        assert isinstance(values, np.ndarray), "'probs' must be a numpy array"
         assert (
             values.shape == self._probs.shape
         ), f"'probs' has shape {values.shape} but should have {self._probs.shape}"

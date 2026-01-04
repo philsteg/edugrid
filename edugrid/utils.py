@@ -8,6 +8,13 @@ class ArrayWrapper:
         self._val_set = val_set
         self._val_setitem = val_setitem
 
+    def __array__(
+        self, dtype: str | np.dtype | None = None, copy: bool | None = None
+    ) -> np.ndarray:
+        if copy is False:
+            raise ValueError("`copy=False` isn't supported. A copy is always created.")
+        return self._array.astype(dtype=dtype, copy=True)
+
     def get(self, *key) -> np.ndarray:
         if not key:
             return self._array.copy()
