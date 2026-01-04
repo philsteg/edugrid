@@ -22,8 +22,6 @@ def visualize_grid(
     rows = shape[0]
     cols = shape[1]
 
-    assert terminal.shape == (rows, cols)
-
     for i in range(rows + 1):
         ax.hlines(i, 0, cols, colors="black")
 
@@ -31,6 +29,7 @@ def visualize_grid(
         ax.vlines(i, 0, rows, colors="black")
 
     if terminal is not None:
+        assert terminal.shape == (rows, cols)
         for (row, col), t in np.ndenumerate(terminal):
             if t:
                 ax.add_patch(plt.Rectangle((col, rows - row), 1, -1, color="gray"))
@@ -107,5 +106,7 @@ def visualize_policy(
                 None,
                 xy=(0.5 + col, total_rows - 0.5 - row),
                 xytext=xytext,
-                arrowprops=dict(arrowstyle="<|-"),
+                arrowprops=dict(
+                    arrowstyle="<|-", lw=2, mutation_scale=20, color="black"
+                ),
             )
