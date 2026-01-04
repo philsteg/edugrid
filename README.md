@@ -60,4 +60,4 @@ for i, values in enumerate(value_iteration.iter()):
 policy = value_iteration.get_policy(values, type="stochastic")
 ```
 
-See the more sophisticated examples in `edugrid/examples`.
+See the more sophisticated examples in `examples`.
