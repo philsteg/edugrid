@@ -290,7 +290,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
                 np.issubdtype(self._cell_types.dtype, np.integer)
                 and np.all(self._cell_types >= CellType.NORMAL)
                 and np.all(self._cell_types <= CellType.CUSTOM)
-            ), f"'cell_types' must contain integers according to the enum CellType"
+            ), "'cell_types' must contain integers according to the enum CellType"
         elif map_str is not None:
             self._cell_types, targets_in_map = self._map_from_str(map_str)
             if size is None:
@@ -363,16 +363,16 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
             self._terminal_matrix = extra_params["terminal_matrix"]
             assert isinstance(
                 self._terminal_matrix, np.ndarray
-            ), f"'terminal_matrix' must be a numpy array"
+            ), "'terminal_matrix' must be a numpy array"
             assert (
                 self._terminal_matrix.shape == terminal_matrix_shape
             ), f"'terminal_matrix' has shape {self._terminal_matrix.shape} but should have {terminal_matrix_shape}"
             assert np.all(
                 self._terminal_matrix[self._cell_types == CellType.TARGET]
-            ), f"'terminal_matrix' must be true for all target cells"
+            ), "'terminal_matrix' must be true for all target cells"
             assert np.all(
                 self._terminal_matrix[self._cell_types == CellType.SINK]
-            ), f"'terminal_matrix' must be true for all sink cells"
+            ), "'terminal_matrix' must be true for all sink cells"
         else:
             self._init_terminal_matrix(terminal_matrix_shape)
 
@@ -395,7 +395,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
             self._transition_matrix = extra_params["transition_matrix"]
             assert isinstance(
                 self._transition_matrix, np.ndarray
-            ), f"'transition_matrix' must be a numpy array"
+            ), "'transition_matrix' must be a numpy array"
             assert (
                 self._transition_matrix.shape == transition_matrix_shape
             ), f"'transition_matrix' has shape {self._transition_matrix.shape} but should have {transition_matrix_shape}"
@@ -436,7 +436,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
             self._reward_matrix = extra_params["reward_matrix"]
             assert isinstance(
                 self._reward_matrix, np.ndarray
-            ), f"'reward_matrix' must be a numpy array"
+            ), "'reward_matrix' must be a numpy array"
             assert (
                 self._reward_matrix.shape == reward_matrix_shape
             ), f"'reward_matrix' has shape {self._reward_matrix.shape} but should have {reward_matrix_shape}"
@@ -623,9 +623,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
     """Numpy array with shape `(rows, columns, actions, rows, columns)` that specifies the reward for all possible transitions `(state, action, next_state)`."""
 
     def _validate_set_terminal_matrix(self, values: np.ndarray) -> None:
-        assert isinstance(
-            values, np.ndarray
-        ), f"'terminal_matrix' must be a numpy array"
+        assert isinstance(values, np.ndarray), "'terminal_matrix' must be a numpy array"
         assert (
             values.shape == self._terminal_matrix.shape
         ), f"'terminal_matrix' has shape {values.shape} but should have {self._terminal_matrix.shape}"
@@ -636,7 +634,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
     def _validate_set_transition_matrix(self, values: np.ndarray) -> None:
         assert isinstance(
             values, np.ndarray
-        ), f"'transition_matrix' must be a numpy array"
+        ), "'transition_matrix' must be a numpy array"
         assert (
             values.shape == self._transition_matrix.shape
         ), f"'transition_matrix' has shape {values.shape} but should have {self._transition_matrix.shape}"
@@ -672,7 +670,7 @@ class EduGridEnv(gym.Env[np.ndarray, Union[int, np.ndarray]]):
         ), "All probabilities must be zero for transitions into walls"
 
     def _validate_set_reward_matrix(self, values: np.ndarray) -> None:
-        assert isinstance(values, np.ndarray), f"'reward_matrix' must be a numpy array"
+        assert isinstance(values, np.ndarray), "'reward_matrix' must be a numpy array"
         assert (
             values.shape == self._reward_matrix.shape
         ), f"'reward_matrix' must have shape {self._reward_matrix.shape} but argument has shape {values.shape}"
